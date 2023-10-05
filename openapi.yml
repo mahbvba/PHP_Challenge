@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  title: Service Catalogue API
+  version: 1.0.0
+paths:
+  /services:
+    get:
+      summary: Query services by country code
+      parameters:
+        - name: country
+          in: query
+          required: true
+          description: Country code to filter services
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Ref:
+                      type: string
+                    Centre:
+                      type: string
+                    Service:
+                      type: string
+                    Country:
+                      type: string
+  /services/{ref}:
+    post:
+      summary: Add or update a service entry by reference code
+      parameters:
+        - name: ref
+          in: path
+          required: true
+          description: Reference code of the service entry
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Ref:
+                  type: string
+                Centre:
+                  type: string
+                Service:
+                  type: string
+                Country:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
